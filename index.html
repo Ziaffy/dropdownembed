@@ -1,427 +1,198 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dropdown Pesanan dengan Total Harga</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f9ff;
-    padding: 20px;
-  }
-  #embed-dependent-dropdown {
-    max-width: 360px;
-    margin: 10px auto;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    padding: 20px;
-    color: #333;
-  }
-  label {
-    font-weight: 600;
-    font-size: 1.1rem;
-    display: block;
-    margin-top: 20px;
-  }
-  select, input[type=number] {
-    margin-top: 8px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 2px solid #007bff;
-    background-color: white;
-    font-size: 1rem;
-    color: #333;
-    width: 100%;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.2s ease;
-  }
-  select:hover, select:focus,
-  input[type=number]:hover, input[type=number]:focus {
-    border-color: #0056b3;
-  }
-  #price-info {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
-    background-color: #f9f9f9;
-  }
-  #payment-info {
-    margin-top: 20px;
-    background-color: #e9f5ff;
-    border: 1px solid #b3d7ff;
-    border-radius: 8px;
-    padding: 16px;
-    display: none;
-  }
-  button {
-    cursor: pointer;
-    padding: 10px 18px;
-    font-weight: 600;
-    border-radius: 6px;
-    border: none;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-  }
-  #btn-yes {
-    background-color: #007bff;
-    color: white;
-    margin-right: 10px;
-  }
-  #btn-yes:hover {
-    background-color: #0056b3;
-  }
-  #btn-no {
-    background-color: #dc3545;
-    color: white;
-  }
-  #btn-no:hover {
-    background-color: #a71d2a;
-  }
-  #btn-copy {
-    background-color: #007bff;
-    color: white;
-    flex: 1;
-  }
-  #btn-copy:hover {
-    background-color: #0056b3;
-  }
-  #btn-wa {
-    background-color: #25d366;
-    color: white;
-    flex: 1;
-  }
-  #btn-wa:hover {
-    background-color: #1ebe57;
-  }
-  #random-key {
-    font-weight: 700;
-    font-size: 1.2rem;
-    background-color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #007bff;
-    user-select: all;
-    cursor: pointer;
-  }
-  .button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-  }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dropdown Pesanan dengan Total Harga</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f9ff;
+            padding: 20px;
+        }
+        #embed-dependent-dropdown {
+            max-width: 360px;
+            margin: 10px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            color: #333;
+        }
+        label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: block;
+            margin-top: 20px;
+        }
+        select, input[type=number] {
+            margin-top: 8px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid #007bff;
+            background-color: white;
+            font-size: 1rem;
+            color: #333;
+            width: 100%;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
+        }
+        button {
+            cursor: pointer;
+            padding: 10px 18px;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        #btn-yes {
+            background-color: #007bff;
+            color: white;
+            margin-right: 10px;
+        }
+        #btn-no {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
 <div id="embed-dependent-dropdown">
-  <label for="first-choice">Pilihan pertama:</label>
-  <select id="first-choice" name="first-choice">
-    <option value="" disabled selected>Pilih Kustom atau Beli</option>
-    <option value="kustom">Kustom</option>
-    <option value="beli">Beli</option>
-  </select>
+    <label for="first-choice">Pilihan pertama:</label>
+    <select id="first-choice" name="first-choice">
+        <option value="" disabled selected>Pilih Kustom atau Beli</option>
+        <option value="kustom">Kustom</option>
+        <option value="beli">Beli</option>
+    </select>
 
-  <label for="second-choice">Nama:</label>
-  <select id="second-choice" name="second-choice" disabled>
-    <option value="" disabled selected>Pilih dulu pilihan pertama</option>
-  </select>
+    <label for="second-choice">Nama:</label>
+    <select id="second-choice" name="second-choice" disabled>
+        <option value="" disabled selected>Pilih dulu pilihan pertama</option>
+    </select>
 
-  <div id="price-info" style="display:none;">
-    <p id="price-text" style="font-weight: 600; margin: 0 0 10px 0;"></p>
-
-    <label for="quantity-input">Jumlah beli (quantity):</label>
-    <input type="number" id="quantity-input" name="quantity-input" value="1" min="1" max="100"/>
-
-    <p id="total-price-text" style="font-weight: 600; margin-top: 10px;"></p>
-
-    <p id="question-text" style="font-weight: 600; margin-top: 20px;">Lanjut beli atau tidak?</p>
-    <button id="btn-yes">Lanjut</button>
-    <button id="btn-no">Tidak</button>
-  </div>
-
-  <div id="payment-info">
-    <p>Terima kasih atas pembelian Anda!</p>
-    <p>Silakan kirim kode berikut ke bot WhatsApp kami untuk melanjutkan pembayaran:</p>
-
-    <p id="random-key" title="Klik untuk menyalin kode">XXXXX-XXXXX</p>
-
-    <div class="button-group">
-      <button id="btn-copy">Salin Kode</button>
-      <button id="btn-wa">Lanjut ke WhatsApp</button>
+    <div id="price-info" style="display:none;">
+        <label for="quantity-input">Jumlah beli (quantity):</label>
+        <input type="number" id="quantity-input" name="quantity-input" value="1" min="1" max="100"/>
+        <p id="total-price-text" style="font-weight: 600; margin-top: 10px;"></p>
+        <button id="btn-yes">Lanjut</button>
+        <button id="btn-no">Tidak</button>
     </div>
-  </div>
 </div>
 
 <script>
-  (function() {
-    const firstChoice = document.getElementById('first-choice');
-    const secondChoice = document.getElementById('second-choice');
-    const priceInfo = document.getElementById('price-info');
-    const priceText = document.getElementById('price-text');
-    const totalPriceText = document.getElementById('total-price-text');
-    const btnYes = document.getElementById('btn-yes');
-    const btnNo = document.getElementById('btn-no');
-    const quantityInput = document.getElementById('quantity-input');
-    
-    const paymentInfo = document.getElementById('payment-info');
-    const randomKeyElem = document.getElementById('random-key');
-    const btnCopy = document.getElementById('btn-copy');
-    const btnWa = document.getElementById('btn-wa');
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Script is running"); // Debugging log
 
-    const kustomData = [
-      {name: 'Kustom 1', price: 100000},
-      {name: 'Kustom 2', price: 110000},
-      {name: 'Kustom 3', price: 120000},
-      {name: 'Kustom 4', price: 130000},
-      {name: 'Kustom 5', price: 140000},
-      {name: 'Kustom 6', price: 150000}
-    ];
+        const firstChoice = document.getElementById('first-choice');
+        const secondChoice = document.getElementById('second-choice');
+        const priceInfo = document.getElementById('price-info');
+        const totalPriceText = document.getElementById('total-price-text');
+        const quantityInput = document.getElementById('quantity-input');
 
-    const beliData = [
-      {name: 'Beli 1', price: 50000},
-      {name: 'Beli 2', price: 60000},
-      {name: 'Beli 3', price: 70000},
-      {name: 'Beli 4', price: 80000},
-      {name: 'Beli 5', price: 90000},
-      {name: 'Beli 6', price: 100000},
-      {name: 'Beli 7', price: 110000},
-      {name: 'Beli 8', price: 120000},
-      {name: 'Beli 9', price: 130000},
-      {name: 'Beli 10', price: 140000},
-      {name: 'Beli 11', price: 150000},
-      {name: 'Beli 12', price: 160000},
-      {name: 'Beli 13', price: 170000},
-      {name: 'Beli 14', price: 180000},
-      {name: 'Beli 15', price: 190000}
-    ];
+        const kustomData = [
+            {name: 'Kustom 1', price: 100000},
+            {name: 'Kustom 2', price: 110000},
+            {name: 'Kustom 3', price: 120000}
+        ];
 
-    function clearOptions() {
-      secondChoice.innerHTML = '';
-    }
+        const beliData = [
+            {name: 'Beli 1', price: 50000},
+            {name: 'Beli 2', price: 60000}
+        ];
 
-    function setDisabled(state) {
-      secondChoice.disabled = state;
-    }
+        function populateOptions(items) {
+            secondChoice.innerHTML = '';
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Pilih nama';
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            secondChoice.appendChild(defaultOption);
 
-    function populateOptions(items) {
-      clearOptions();
-      const defaultOption = document.createElement('option');
-      defaultOption.value = '';
-      defaultOption.textContent = 'Pilih nama';
-      defaultOption.disabled = true;
-      defaultOption.selected = true;
-      secondChoice.appendChild(defaultOption);
-
-      items.forEach(item => {
-        const optionElem = document.createElement('option');
-        optionElem.value = item.name.toLowerCase().replace(/\s+/g, '-');
-        optionElem.textContent = item.name;
-        secondChoice.appendChild(optionElem);
-      });
-      setDisabled(false);
-      priceInfo.style.display = 'none';
-      paymentInfo.style.display = 'none';
-      totalPriceText.textContent = '';
-    }
-
-    function getPrice(name, list) {
-      const found = list.find(item => item.name.toLowerCase().replace(/\s+/g, '-') === name);
-      return found ? found.price : null;
-    }
-
-    firstChoice.addEventListener('change', function() {
-      paymentInfo.style.display = 'none';
-      quantityInput.value = 1;
-      totalPriceText.textContent = '';
-      if (this.value === 'kustom') {
-        populateOptions(kustomData);
-      } else if (this.value === 'beli') {
-        populateOptions(beliData);
-      } else {
-        clearOptions();
-        setDisabled(true);
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = 'Pilih dulu pilihan pertama';
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        secondChoice.appendChild(defaultOption);
-        priceInfo.style.display = 'none';
-      }
-    });
-
-    function updateTotalPrice() {
-      const quantity = parseInt(quantityInput.value, 10);
-      if (isNaN(quantity) || quantity < 1) {
-        totalPriceText.textContent = '';
-        return;
-      }
-
-      const selectedName = secondChoice.value;
-      if (!selectedName) {
-        totalPriceText.textContent = '';
-        return;
-      }
-
-      let price = null;
-      if (firstChoice.value === 'kustom') {
-        price = getPrice(selectedName, kustomData);
-      } else if (firstChoice.value === 'beli') {
-        price = getPrice(selectedName, beliData);
-      }
-      if (price !== null) {
-        const totalPrice = price * quantity;
-        totalPriceText.textContent = `Total harga: Rp ${totalPrice.toLocaleString('id-ID')}`;
-      } else {
-        totalPriceText.textContent = '';
-      }
-    }
-
-    secondChoice.addEventListener('change', () => {
-      priceInfo.style.display = 'none';
-      quantityInput.value = 1;
-      paymentInfo.style.display = 'none';
-      updateTotalPrice();
-      if (secondChoice.value) {
-        priceInfo.style.display = 'block';
-      }
-    });
-
-    quantityInput.addEventListener('input', () => {
-      updateTotalPrice();
-    });
-
-    btnYes.addEventListener('click', function() {
-      const qty = parseInt(quantityInput.value, 10);
-      if (isNaN(qty) || qty < 1) {
-        alert('Jumlah beli harus angka dan minimal 1.');
-        quantityInput.focus();
-        return;
-      }
-
-      const selectedNameValue = secondChoice.value;
-      if (!selectedNameValue) {
-        alert('Silakan pilih nama dulu.');
-        return;
-      }
-
-      let price = null;
-      if (firstChoice.value === 'kustom') {
-        price = getPrice(selectedNameValue, kustomData);
-      } else if (firstChoice.value === 'beli') {
-        price = getPrice(selectedNameValue, beliData);
-      }
-      if (price === null) {
-        alert('Harga tidak ditemukan.');
-        return;
-      }
-
-      // const totalPrice = price * qty; // not used in display, just for logic
-
-      const randomKey = generateRandomKey();
-
-      // Show payment info with random key and details
-      priceInfo.style.display = 'none';
-      paymentInfo.style.display = 'block';
-      randomKeyElem.textContent = randomKey;
-      randomKeyElem.title = 'Klik untuk menyalin kode';
-
-      // Scroll to payment info smoothly
-      paymentInfo.scrollIntoView({behavior: 'smooth'});
-    });
-
-    btnNo.addEventListener('click', function() {
-      priceInfo.style.display = 'none';
-      paymentInfo.style.display = 'none';
-      secondChoice.selectedIndex = 0;
-      quantityInput.value = 1;
-      totalPriceText.textContent = '';
-    });
-
-    randomKeyElem.addEventListener('click', function() {
-      copyToClipboard(this.textContent);
-      alert('Kode sudah disalin ke clipboard!');
-    });
-
-    btnCopy.addEventListener('click', function() {
-      copyToClipboard(randomKeyElem.textContent);
-      alert('Kode sudah disalin ke clipboard!');
-    });
-
-    btnWa.addEventListener('click', function() {
-      // Prompt for WhatsApp link input
-      const inputLink = prompt('Masukkan link WhatsApp bot Anda (contoh: https://wa.me/6281234567890):', 'https://wa.me/');
-
-      if (inputLink === null) {
-        // User cancelled prompt
-        return;
-      }
-      const waBase = inputLink.trim();
-      if (!waBase) {
-        alert('Link WhatsApp tidak boleh kosong.');
-        return;
-      }
-      const code = randomKeyElem.textContent;
-      if (!code || code === 'XXXXX-XXXXX') {
-        alert('Kode belum tersedia, silakan lakukan proses pembelian dulu.');
-        return;
-      }
-
-      // Construct WhatsApp URL with code as message, encode properly
-      let waUrl = waBase;
-      if (waUrl.includes('?')) {
-        // add &text=
-        waUrl += '&text=' + encodeURIComponent(`Kode pembayaran saya: ${code}`);
-      } else {
-        // add ?text=
-        waUrl += '?text=' + encodeURIComponent(`Kode pembayaran saya: ${code}`);
-      }
-      window.open(waUrl, '_blank');
-    });
-
-    function generateRandomKey() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      const segmentLength = 5;
-      function segment() {
-        let seg = '';
-        for(let i=0; i<segmentLength; i++) {
-          seg += chars.charAt(Math.floor(Math.random() * chars.length));
+            items.forEach(item => {
+                const optionElem = document.createElement('option');
+                optionElem.value = item.name.toLowerCase().replace(/\s+/g, '-');
+                optionElem.textContent = item.name;
+                secondChoice.appendChild(optionElem);
+            });
+            secondChoice.disabled = false;
+            priceInfo.style.display = 'none';
+            totalPriceText.textContent = '';
         }
-        return seg;
-      }
-      return segment() + '-' + segment();
-    }
 
-    function copyToClipboard(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).catch(() => {
-          fallbackCopy(text);
+        firstChoice.addEventListener('change', function() {
+            console.log("First choice changed"); // Debugging log
+            if (this.value === 'kustom') {
+                populateOptions(kustomData);
+            } else if (this.value === 'beli') {
+                populateOptions(beliData);
+            } else {
+                secondChoice.disabled = true;
+                priceInfo.style.display = 'none';
+            }
         });
-      } else {
-        fallbackCopy(text);
-      }
-    }
 
-    function fallbackCopy(text) {
-      const textArea = document.createElement('textarea');
-      textArea.value = text;
-      textArea.style.position = 'fixed';  // avoid scrolling to bottom
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      try {
-        document.execCommand('copy');
-      } catch (err) {
-        console.error('Fallback: Copy command failed', err);
-      }
-      document.body.removeChild(textArea);
-    }
-  })();
+        secondChoice.addEventListener('change', () => {
+            priceInfo.style.display = 'block';
+        });
+
+        quantityInput.addEventListener('input', () => {
+            const quantity = parseInt(quantityInput.value, 10);
+            const selectedName = secondChoice.value;
+            let price = null;
+
+            if (firstChoice.value === 'kustom') {
+                price = kustomData.find(item => item.name.toLowerCase().replace(/\s+/g, '-') === selectedName)?.price;
+            } else if (firstChoice.value === 'beli') {
+                price = beliData.find(item => item.name.toLowerCase().replace(/\s+/g, '-') === selectedName)?.price;
+            }
+
+            if (price !== null) {
+                const totalPrice = price * quantity;
+                totalPriceText.textContent = `Total harga: Rp ${totalPrice.toLocaleString('id-ID')}`;
+            } else {
+                totalPriceText.textContent = '';
+            }
+        });
+
+        document.getElementById('btn-yes').addEventListener('click', function() {
+            const generatedCode = 'KODE-' + Math.floor(Math.random() * 10000); // Contoh kode acak
+            const orderInfo = 'Order dari user'; // Ganti dengan informasi yang sesuai
+
+            // Kirim data ke Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbzJ_zbDYoxZhlE3lRLpbXa5oJqPTv1_RgDOtlwtpYPmF4ujYOMPmDf1MMNAJqpTi_Ro/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: generatedCode,
+                    orderInfo: orderInfo
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Tampilkan response di console
+                if (data.status === 'success') {
+                    alert('Kode berhasil disimpan! Kode: ' + generatedCode);
+                } else {
+                    alert('Gagal menyimpan kode.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('btn-no').addEventListener('click', function() {
+            priceInfo.style.display = 'none';
+            totalPriceText.textContent = '';
+            secondChoice.selectedIndex = 0;
+            quantityInput.value = 1;
+        });
+    });
 </script>
 
 </body>
 </html>
-
