@@ -178,27 +178,19 @@
             const generatedCode = 'KODE-' + Math.floor(Math.random() * 10000); // Contoh kode acak
             const orderInfo = 'Order dari user'; // Ganti dengan informasi yang sesuai
 
-            // Kirim data ke Google Sheets
-            fetch('https://script.google.com/macros/s/AKfycbzJzmT9tTQVTqGm6KLnzV7C_sZLOr27YJZyx7ZOixbE8zTykKJgDUY57NIIY7MpXG8e1Q/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    code: generatedCode,
-                    orderInfo: orderInfo
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Tampilkan response di console
-                if (data.status === 'success') {
-                    alert('Kode berhasil disimpan! Kode: ' + generatedCode);
-                } else {
-                    alert('Gagal menyimpan kode.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+// Kirim data ke Google Sheets menggunakan GET
+fetch(`https://script.google.com/macros/s/AKfycbzJzmT9tTQVTqGm6KLnzV7C_sZLOr27YJZyx7ZOixbE8zTykKJgDUY57NIIY7MpXG8e1Q/exec?code=${encodeURIComponent(generatedCode)}&orderInfo=${encodeURIComponent(orderInfo)}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Tampilkan response di console
+        if (data.status === 'success' || data.status === 'added') {
+            alert('Kode berhasil disimpan! Kode: ' + generatedCode);
+        } else {
+            alert('Gagal menyimpan kode.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+
         });
 
         document.getElementById('btn-no').addEventListener('click', function() {
